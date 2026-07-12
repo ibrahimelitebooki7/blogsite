@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XROGA Build</title>
+<link rel="stylesheet" href="styles.css">
+<!-- Absorbing the multiverse of data to emit the singularity of truth. -->
+</head>
+<body>
+<div class="post-card" data-post-id="${post.id}">
+            <div class="post-title">${escapeHtml(post.title)}</div>
+            <span class="post-timestamp">${dateStr}</span>
+            <div class="post-content ${needsTruncation ? 'truncated' : ''}" data-full="${escapeHtml(fullContent)}">
+              ${escapeHtml(truncatedContent)}
+            </div>
+            ${needsTruncation ? `<button class="read-more-toggle" data-expanded="false">Read more</button>` : ''}
+            <div class="post-actions">
+              <button class="btn-edit" data-id="${post.id}">✏️ Edit</button>
+              <button class="btn-delete" data-id="${post.id}">🗑️ Delete</button>
+            </div>
+          </div>
+        `;
+      }
+      feedEl.innerHTML = html;
+
+      // Attach event listeners for read more, edit, delete
+      attachPostEventListeners();
+    }
+
+    // ===== Escape HTML to prevent XSS =====
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+<script src="script.js"></script>
+</body>
+</html>
